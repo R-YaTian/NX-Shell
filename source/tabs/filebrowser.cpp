@@ -5,6 +5,7 @@
 #include "fs.hpp"
 #include "imgui.h"
 #include "imgui_internal.h"
+#include "language.hpp"
 #include "tabs.hpp"
 #include "textures.hpp"
 #include "utils.hpp"
@@ -82,7 +83,7 @@ namespace Tabs {
     static const ImVec2 tex_size = ImVec2(21, 21);
 
     void FileBrowser(WindowData &data) {
-        if (ImGui::BeginTabItem("File Browser")) {
+        if (ImGui::BeginTabItem(strings[cfg.lang][Lang::FileBrowser])) {
             ImGui::Dummy(ImVec2(0.0f, 1.0f)); // Spacing
 
             ImGui::PushID("device_list");
@@ -129,12 +130,12 @@ namespace Tabs {
             ImGuiTableFlags tableFlags = ImGuiTableFlags_Resizable | ImGuiTableFlags_Sortable | ImGuiTableFlags_BordersInner |
                 ImGuiTableFlags_BordersOuter | ImGuiTableFlags_SizingStretchProp | ImGuiTableFlags_ScrollY;
             
-            if (ImGui::BeginTable("Directory List", 2, tableFlags)) {
+            if (ImGui::BeginTable(strings[cfg.lang][Lang::DirectoryList], 2, tableFlags)) {
                 // Make header always visible
                 // ImGui::TableSetupScrollFreeze(0, 1);
 
                 ImGui::TableSetupColumn("", ImGuiTableColumnFlags_NoSort | ImGuiTableColumnFlags_NoHeaderLabel | ImGuiTableColumnFlags_WidthFixed);
-                ImGui::TableSetupColumn("Filename", ImGuiTableColumnFlags_DefaultSort);
+                ImGui::TableSetupColumn(strings[cfg.lang][Lang::FileName], ImGuiTableColumnFlags_DefaultSort);
                 ImGui::TableHeadersRow();
 
                 if (ImGuiTableSortSpecs *sorts_specs = ImGui::TableGetSortSpecs()) {

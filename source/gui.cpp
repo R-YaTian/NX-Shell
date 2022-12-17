@@ -188,10 +188,14 @@ namespace GUI {
             if (cfg.multi_lang) {
                 font_cfg.MergeMode = true;
                 io.Fonts->AddFontFromMemoryTTF(extended.address, extended.size, 20.f, std::addressof(font_cfg), extended_range);
-                io.Fonts->AddFontFromMemoryTTF(chinese.address,  chinese.size,  20.f, std::addressof(font_cfg), io.Fonts->GetGlyphRangesChineseFull());
+                //io.Fonts->AddFontFromMemoryTTF(chinese.address,  chinese.size,  20.f, std::addressof(font_cfg), io.Fonts->GetGlyphRangesChineseFull());
                 io.Fonts->AddFontFromMemoryTTF(korean.address,   korean.size,   20.f, std::addressof(font_cfg), io.Fonts->GetGlyphRangesKorean());
+                if (cfg.full_charset)
+                    io.Fonts->AddFontFromMemoryTTF(chinese.address,   chinese.size,   20.f, std::addressof(font_cfg), io.Fonts->GetGlyphRangesChineseFull());
+                else
+                    io.Fonts->AddFontFromMemoryTTF(chinese.address,   chinese.size,   20.f, std::addressof(font_cfg), io.Fonts->GetGlyphRangesChineseSimplifiedCommon());
             }
-            
+
             // build font atlas
             io.Fonts->GetTexDataAsAlpha8(std::addressof(px), std::addressof(w), std::addressof(h), std::addressof(bpp));
             io.Fonts->Flags |= ImFontAtlasFlags_NoPowerOfTwoHeight;

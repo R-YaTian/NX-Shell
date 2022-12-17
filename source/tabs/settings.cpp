@@ -28,7 +28,7 @@ namespace Tabs {
     }
     
     void Settings(WindowData &data) {
-        if (ImGui::BeginTabItem("Settings")) {
+        if (ImGui::BeginTabItem(strings[cfg.lang][Lang::SettingsTitle])) {
             // Disable language settings for now (At least until it;s complete)
             // if (ImGui::TreeNode(strings[cfg.lang][Lang::SettingsLanguageTitle])) {
             //     const char *languages[] = {
@@ -101,6 +101,14 @@ namespace Tabs {
             Tabs::Indent(strings[cfg.lang][Lang::SettingsMultiLangTitle]);
 
             if (ImGui::Checkbox(strings[cfg.lang][Lang::SettingsMultiLangLogsToggle], std::addressof(cfg.multi_lang)))
+                Config::Save(cfg);
+
+            Tabs::Separator();
+
+            // Full charset Checkbox
+            Tabs::Indent(strings[cfg.lang][Lang::SettingsFullCharsetTitle]);
+
+            if (ImGui::Checkbox(strings[cfg.lang][Lang::SettingsFullCharsetLogsToggle], std::addressof(cfg.full_charset)))
                 Config::Save(cfg);
 
             Tabs::Separator();

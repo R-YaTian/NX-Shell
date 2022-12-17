@@ -6,6 +6,12 @@ namespace Lang {
         ButtonOK = 0,
         ButtonCancel,
 
+        // File Browser
+        FileBrowser,
+        DirectoryList,
+        FileName,
+        FileSize,
+
         // Options dialog
         OptionsTitle,
         OptionsSelectAll,
@@ -53,11 +59,13 @@ namespace Lang {
         SettingsImageViewTitle,
         SettingsDevOptsTitle,
         SettingsMultiLangTitle,
+        SettingsFullCharsetTitle,
         SettingsAboutTitle,
         SettingsCheckForUpdates,
         SettingsImageViewFilenameToggle,
         SettingsDevOptsLogsToggle,
         SettingsMultiLangLogsToggle,
+        SettingsFullCharsetLogsToggle,
         SettingsAboutVersion,
         SettingsAboutAuthor,
         SettingsAboutBanner,
