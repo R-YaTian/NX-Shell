@@ -1,12 +1,11 @@
 #include <string>
 
+#define IMGUI_DEFINE_MATH_OPERATORS
 #include "config.hpp"
 #include "gui.hpp"
 #include "imgui.h"
 #include "popups.hpp"
 #include "windows.hpp"
-
-#define IMGUI_DEFINE_MATH_OPERATORS
 #include "imgui_internal.h"
 
 namespace ImageViewer {
