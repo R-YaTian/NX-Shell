@@ -199,12 +199,12 @@ static u64 ImGui_ImplSwitch_UpdateGamepads(void) {
     #define MAP_BUTTON(KEY_NO, BUTTON_NO)       { io.AddKeyEvent(KEY_NO, (padGetButtons(&bd->pad) & BUTTON_NO)); }
     #define MAP_ANALOG(KEY_NO, AXIS_NO, V0, V1) { float vn = (float)(AXIS_NO - V0) / (float)(V1 - V0); vn = IM_SATURATE(vn); io.AddKeyAnalogEvent(KEY_NO, vn > 0.1f, vn); }
     const int thumb_dead_zone = 8000;           // SDL_gamecontroller.h suggests using this value.
-    MAP_BUTTON(ImGuiKey_GamepadStart,           HidNpadButton_A);
-    MAP_BUTTON(ImGuiKey_GamepadBack,            HidNpadButton_B);
+    MAP_BUTTON(ImGuiKey_GamepadStart,           HidNpadButton_Plus);
+    MAP_BUTTON(ImGuiKey_GamepadBack,            HidNpadButton_Minus);
     MAP_BUTTON(ImGuiKey_GamepadFaceDown,        HidNpadButton_A);
     MAP_BUTTON(ImGuiKey_GamepadFaceRight,       HidNpadButton_B);
-    // MAP_BUTTON(ImGuiKey_GamepadFaceLeft,        HidNpadButton_Y);
-    MAP_BUTTON(ImGuiKey_GamepadFaceUp,          HidNpadButton_X);
+    MAP_BUTTON(ImGuiKey_GamepadFaceLeft,        HidNpadButton_X);
+    //MAP_BUTTON(ImGuiKey_GamepadFaceUp,          HidNpadButton_Y);
     MAP_BUTTON(ImGuiKey_GamepadDpadLeft,        HidNpadButton_Left);
     MAP_BUTTON(ImGuiKey_GamepadDpadRight,       HidNpadButton_Right)
     MAP_BUTTON(ImGuiKey_GamepadDpadUp,          HidNpadButton_Up);
@@ -321,9 +321,9 @@ static void ImGui_ImplSwitch_SetupRenderState(ImDrawData * draw_data, int fb_wid
     glEnableVertexAttribArray(bd->AttribLocationVtxPos);
     glEnableVertexAttribArray(bd->AttribLocationVtxUV);
     glEnableVertexAttribArray(bd->AttribLocationVtxColor);
-    glVertexAttribPointer(bd->AttribLocationVtxPos,   2, GL_FLOAT,         GL_FALSE, sizeof(ImDrawVert), static_cast<GLvoid *>(IM_OFFSETOF(ImDrawVert, pos)));
-    glVertexAttribPointer(bd->AttribLocationVtxUV,    2, GL_FLOAT,         GL_FALSE, sizeof(ImDrawVert), reinterpret_cast<GLvoid *>(IM_OFFSETOF(ImDrawVert, uv)));
-    glVertexAttribPointer(bd->AttribLocationVtxColor, 4, GL_UNSIGNED_BYTE, GL_TRUE,  sizeof(ImDrawVert), reinterpret_cast<GLvoid *>(IM_OFFSETOF(ImDrawVert, col)));
+    glVertexAttribPointer(bd->AttribLocationVtxPos,   2, GL_FLOAT,         GL_FALSE, sizeof(ImDrawVert), static_cast<GLvoid *>(offsetof(ImDrawVert, pos)));
+    glVertexAttribPointer(bd->AttribLocationVtxUV,    2, GL_FLOAT,         GL_FALSE, sizeof(ImDrawVert), reinterpret_cast<GLvoid *>(offsetof(ImDrawVert, uv)));
+    glVertexAttribPointer(bd->AttribLocationVtxColor, 4, GL_UNSIGNED_BYTE, GL_TRUE,  sizeof(ImDrawVert), reinterpret_cast<GLvoid *>(offsetof(ImDrawVert, col)));
 }
 
 // OpenGL3 Render function.
