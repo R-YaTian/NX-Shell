@@ -12,15 +12,45 @@ jobs:
     container: devkitpro/devkita64:latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+    - uses: actions/checkout@master
       with:
         submodules: recursive
 
-    - name: Build
-      run: make
+    - name: Update packages
+      run: |
+        sudo -n apt-get update
+        sudo -n apt-get upgrade -y patch autoconf automake diffutils pkgconf fakeroot git file tar bzip2 zstd
+        sudo -n dkp-pacman --noconfirm -U \
+          "https://wii.leseratte10.de/devkitPro/other-stuff/dkp-toolchain-vars-1.0.2-1-any.pkg.tar.xz"
 
-    - uses: actions/upload-artifact@v3
+    - name: Silence all git safe directory warnings
+      run: git config --system --add safe.directory '*'
+
+    - name: Checkout latest libnx commit
+      run: |
+        git clone --recurse-submodules https://github.com/switchbrew/libnx.git
+
+    - name: Checkout latest libusbhsfs commit
+      run: |
+        git clone https://github.com/DarkMatterCore/libusbhsfs.git
+
+    - name: Set workspace permissions
+      run: chmod 777 -R "$GITHUB_WORKSPACE"
+
+    - name: Build and install libnx
+      run: |
+        cd libnx
+        make install -j$(nproc)
+
+    - name: Build libusbhsfs dependencies
+      run: |
+        cd libusbhsfs
+        make BUILD_TYPE=GPL install
+
+    - name: Build NX-Shell
+      run: make -j$(nproc)
+
+    - uses: actions/upload-artifact@master
       with:
         name: NX-Shell.nro
         path: NX-Shell.nro
